@@ -54,6 +54,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios'
   ],
   /*
   ** vuetify module configuration
@@ -81,5 +82,17 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+  },
+
+  axios: {
+    baseURL: "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404"
+  },
+
+  plugins: [
+    '~/plugins/axios.js'
+  ],
+
+  env: {
+    BOOKS_APP_ID: process.env.BOOKS_APP_ID
   }
 }
