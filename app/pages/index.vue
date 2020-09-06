@@ -1,10 +1,9 @@
 <template>
   <v-container>
-    <v-form>
-      <v-text-field label="タイトル" v-model="formData.title" autocomplete="off"></v-text-field>
-      <v-btn @click="getBooks">submit</v-btn>
-    </v-form>
-    <v-layout wrap justify-space-around>
+    <v-text-field label="タイトル" @keyup.enter="getBooks" v-model="formData.title" autocomplete="off"></v-text-field>
+    <v-alert type="warning" v-if="errorMessage">{{ errorMessage }}</v-alert>
+    <span></span>
+    <v-layout v-if="success" wrap justify-space-around>
       <v-col v-for="book in books" :key="book.isbn">
         <v-card outlined>
           <v-hover v-slot:default="{ hover }">
@@ -36,17 +35,26 @@ export default {
       formData: {
         title: "",
       },
+      success: false,
+      errorMessage: "",
     };
   },
   methods: {
     async getBooks() {
-      const books = await this.$axios.$get("/", {
-        params: {
-          title: this.formData.title,
-          booksGenreId: "001001",
-        },
-      });
-      this.books = books.Items;
+      if (!this.formData.title) {
+        this.success = false;
+        this.errorMessage = "タイトルを入力してください。";
+      } else {
+        const books = await this.$axios.$get("/", {
+          params: {
+            title: this.formData.title,
+            booksGenreId: "001001",
+          },
+        });
+        this.errorMessage = "";
+        this.books = books.Items;
+        this.success = true;
+      }
     },
   },
 };
