@@ -1,7 +1,11 @@
 <template>
   <v-container>
+    <v-form>
+      <v-text-field label="タイトル" v-model="formData.title" autocomplete="off"></v-text-field>
+      <v-btn @click="getBooks">submit</v-btn>
+    </v-form>
     <v-layout wrap justify-space-around>
-      <v-col v-for="book in books.Items" :key="book.isbn">
+      <v-col v-for="book in books" :key="book.isbn">
         <v-card outlined>
           <v-hover v-slot:default="{ hover }">
             <v-img class="white--text align-end" height="300px" :src="book.Item.largeImageUrl">
@@ -26,17 +30,24 @@
 
 <script>
 export default {
-  async asyncData({ app }) {
-    const books = await app.$axios.$get("/", {
-      params: {
-        format: "json",
-        title: "Dr.STONE",
-        booksGenreId: "001001",
-      },
-    });
+  data() {
     return {
-      books,
+      books: {},
+      formData: {
+        title: "",
+      },
     };
+  },
+  methods: {
+    async getBooks() {
+      const books = await this.$axios.$get("/", {
+        params: {
+          title: this.formData.title,
+          booksGenreId: "001001",
+        },
+      });
+      this.books = books.Items;
+    },
   },
 };
 </script>
