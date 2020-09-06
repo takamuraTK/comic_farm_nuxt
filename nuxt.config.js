@@ -85,11 +85,10 @@ export default {
   },
 
   axios: {
-    baseURL: "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404"
   },
 
   plugins: [
-    '~/plugins/axios.js'
+    '~/plugins/axios/book.js'
   ],
 
   env: {

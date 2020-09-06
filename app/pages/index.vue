@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import BookApi from "@/plugins/axios/modules/book";
 export default {
   data() {
     return {
@@ -45,12 +46,7 @@ export default {
         this.success = false;
         this.errorMessage = "タイトルを入力してください。";
       } else {
-        const books = await this.$axios.$get("/", {
-          params: {
-            title: this.formData.title,
-            booksGenreId: "001001",
-          },
-        });
+        const books = await BookApi.getBooks(this.formData.title);
         this.errorMessage = "";
         this.books = books.Items;
         this.success = true;
