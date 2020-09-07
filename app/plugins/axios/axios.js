@@ -1,6 +1,6 @@
 import Vue from 'vue'
 
-export default ({ $axios }) => {
+export default ({ $axios }, inject) => {
   const bookaxiosConfig = {
     baseURL: "https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404",
     params: {
@@ -16,5 +16,5 @@ export default ({ $axios }) => {
       'key': process.env.AUTH_API_KEY,
     }
   }
-  Vue.prototype.$authaxios = $axios.create(authaxiosConfig)
+  inject('authaxios', $axios.create(authaxiosConfig))
 }
