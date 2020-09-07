@@ -3,6 +3,7 @@
     <h2>新規登録</h2>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field v-model="email" :rules="[required, emailRule]" label="メールアドレス"></v-text-field>
+      <v-text-field v-model="username" :rules="[required]" label="ユーザー名"></v-text-field>
       <v-text-field v-model="password" :rules="[required, passwordRule]" label="パスワード"></v-text-field>
       <v-btn :disabled="!valid" color="success" class="mt-4" @click="register">登録</v-btn>
     </v-form>
@@ -15,6 +16,7 @@ export default {
     return {
       valid: true,
       email: "",
+      username: "",
       password: "",
     };
   },
@@ -23,6 +25,7 @@ export default {
       if (this.$refs.form.validate()) {
         const response = await this.$authaxios.$post("/accounts:signUp", {
           email: this.email,
+          displayName: this.username,
           password: this.password,
           returnSecureToken: true,
         });
