@@ -88,10 +88,11 @@ export default {
   },
 
   plugins: [
-    '~/plugins/axios/book.js'
+    '~/plugins/axios/axios.js',
   ],
 
   env: {
-    BOOKS_APP_ID: process.env.BOOKS_APP_ID
+    BOOKS_APP_ID: process.env.BOOKS_APP_ID,
+    AUTH_API_KEY: process.env.AUTH_API_KEY
   }
 }
