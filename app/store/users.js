@@ -1,10 +1,17 @@
 export const state = () => ({
-  idToken: null,
+  isLoggedIn: false,
+  user: null,
 })
 
+export const getters = {
+  isLoggedIn: (state) => state.isLoggedIn,
+  user: (state) => state.user
+}
+
 export const mutations = {
-  updateIdToken(state, idToken) {
-    state.idToken = idToken
+  setUser(state, user) {
+    state.user = user
+    state.isLoggedIn = true
   }
 }
 
@@ -18,8 +25,18 @@ export const actions = {
         returnSecureToken: true,
       }
     ).then(response => {
-      console.log(response)
-      commit('updateIdToken', response.idToken)
+      commit('setUser', {
+        displayName: response.displayName,
+        email: response.email,
+        idToken: response.idToken
+      })
     })
   },
+  async logout({ commit }) {
+    commit('setUser', {
+      displayName: null,
+      email: null,
+      idToken: null
+    })
+  }
 }
