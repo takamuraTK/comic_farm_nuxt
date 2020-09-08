@@ -12,11 +12,14 @@ export const mutations = {
   setUser(state, user) {
     state.user = user
     state.isLoggedIn = true
+  },
+  setIdToken(state, token) {
+    state.idToken = token
   }
 }
 
 export const actions = {
-  async login({ commit }, formData) {
+  async login({ commit, dispatch }, formData) {
     await this.$authaxios.$post(
       "/accounts:signInWithPassword",
       {
@@ -28,8 +31,24 @@ export const actions = {
       commit('setUser', {
         displayName: response.displayName,
         email: response.email,
+      })
+      commit('setIdToken', {
         idToken: response.idToken
       })
+      setTimeout(() => {
+        dispatch('refreshIdToken', response.refreshToken)
+      }, response.expiresIn * 1000)
+    })
+  },
+  async refreshIdToken({ commit, dispatch }, refreshToken) {
+    this.$secureaxios.$post("/token", {
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken
+    }).then(response => {
+      commit('setIdToken', response.id_token)
+      setTimeout(() => {
+        dispatch('refreshIdToken', response.refresh_token)
+      }, response.expires_in * 1000)
     })
   },
   async logout({ commit }) {
