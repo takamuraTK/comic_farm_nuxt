@@ -88,6 +88,7 @@ export default {
   },
 
   plugins: [
+    '~/plugins/index.js',
     '~/plugins/axios/axios.js',
   ],
 

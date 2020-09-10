@@ -6,11 +6,13 @@
       <v-btn to="/">Search</v-btn>
     </v-toolbar-items>
     <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down">
-      <v-btn v-if="user">{{ user.displayName }}</v-btn>
-      <v-btn @click="logout" v-if="user">ログアウト</v-btn>
-      <v-btn to="/users/login" v-if="!user">ログイン</v-btn>
-      <v-btn to="/users/register" v-if="!user">新規登録</v-btn>
+    <v-toolbar-items class="hidden-sm-and-down" v-if="idToken">
+      <v-btn>userpage</v-btn>
+      <v-btn @click="logout">ログアウト</v-btn>
+    </v-toolbar-items>
+    <v-toolbar-items class="hidden-sm-and-down" v-else>
+      <v-btn to="/users/login">ログイン</v-btn>
+      <v-btn to="/users/register">新規登録</v-btn>
     </v-toolbar-items>
   </v-app-bar>
 </template>
@@ -19,7 +21,7 @@
 import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
-    ...mapGetters("users", ["user"]),
+    ...mapGetters("users", ["idToken"]),
   },
   methods: {
     ...mapActions("users", ["logout"]),
