@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -24,7 +23,8 @@ export default {
   methods: {
     async handleClickSubmit() {
       if (this.$refs.form.validate()) {
-        await this.login({ ...this.formData });
+        this.$store.dispatch("users/login", { ...this.formData });
+        this.$router.push("/");
       }
     },
     required: (value) => !!value || "必ず入力してください",
@@ -32,7 +32,6 @@ export default {
       /.+@.+\..+/.test(value) || "正しいメールアドレスを入力してください",
     passwordRule: (value) =>
       value.length >= 6 || "パスワードは6字以上で入力してください",
-    ...mapActions("users", ["login"]),
   },
 };
 </script>

@@ -6,8 +6,8 @@
       <v-btn to="/">Search</v-btn>
     </v-toolbar-items>
     <v-spacer></v-spacer>
-    <v-toolbar-items class="hidden-sm-and-down" v-if="idToken">
-      <v-btn>userpage</v-btn>
+    <v-toolbar-items class="hidden-sm-and-down" v-if="isLoggedIn">
+      <v-btn to="/users/mypage">mypage</v-btn>
       <v-btn @click="logout">ログアウト</v-btn>
     </v-toolbar-items>
     <v-toolbar-items class="hidden-sm-and-down" v-else>
@@ -18,13 +18,18 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters("users", ["idToken"]),
+    ...mapGetters({
+      isLoggedIn: "users/isLoggedIn",
+    }),
   },
   methods: {
-    ...mapActions("users", ["logout"]),
+    logout() {
+      this.$store.dispatch("users/logout");
+      this.$router.push("/users/login");
+    },
   },
 };
 </script>

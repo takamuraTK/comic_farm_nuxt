@@ -9,20 +9,4 @@ export default ({ $axios }, inject) => {
     }
   }
   Vue.prototype.$bookaxios = $axios.create(bookaxiosConfig)
-
-  const authaxiosConfig = {
-    baseURL: "https://identitytoolkit.googleapis.com/v1",
-    params: {
-      'key': process.env.AUTH_API_KEY,
-    }
-  }
-  inject('authaxios', $axios.create(authaxiosConfig))
-
-  const secureaxiosConfig = {
-    baseURL: "https://securetoken.googleapis.com/v1",
-    params: {
-      'key': process.env.AUTH_API_KEY,
-    }
-  }
-  inject('secureaxios', $axios.create(secureaxiosConfig))
 }

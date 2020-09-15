@@ -90,10 +90,18 @@ export default {
   plugins: [
     '~/plugins/index.js',
     '~/plugins/axios/axios.js',
+    '~/plugins/firebase.js',
   ],
 
   env: {
     BOOKS_APP_ID: process.env.BOOKS_APP_ID,
-    AUTH_API_KEY: process.env.AUTH_API_KEY
+    APIKEY: process.env.APIKEY,
+    AUTHDOMAIN: process.env.AUTHDOMAIN,
+    DATABASEURL: process.env.DATABASEURL,
+    PROJECTID: process.env.PROJECTID,
+    STORAGEBUCKET: process.env.STORAGEBUCKET,
+    MESSAGINGSENDERID: process.env.MESSAGINGSENDERID,
+    APPID: process.env.APPID,
+    MEASUREMENTID: process.env.MEASUREMENTID,
   }
 }

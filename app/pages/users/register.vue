@@ -23,13 +23,9 @@ export default {
   methods: {
     async register() {
       if (this.$refs.form.validate()) {
-        const response = await this.$authaxios.$post("/accounts:signUp", {
-          email: this.email,
-          displayName: this.username,
-          password: this.password,
-          returnSecureToken: true,
-        });
-        console.log(response);
+        this.$firebase
+          .auth()
+          .createUserWithEmailAndPassword(this.email, this.password);
       }
     },
     required: (value) => !!value || "必ず入力してください",
