@@ -18,8 +18,8 @@
           </v-hover>
 
           <v-card-actions>
-            <v-btn color="orange" text>Have</v-btn>
-            <v-btn @click="addFavorite(book.Item)" color="orange" text>Favorite</v-btn>
+            <v-btn color="orange" text>所持</v-btn>
+            <v-btn @click="addFavorite(book.Item)" color="orange" text>お気に入り</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -57,6 +57,7 @@ export default {
       }
     },
     addFavorite(book) {
+      this.$store.dispatch("book/addBook", book);
       this.$store.dispatch("book/addFavorite", book);
     },
   },

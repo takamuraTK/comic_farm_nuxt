@@ -6,7 +6,23 @@ export const state = () => ({
   favorites: [],
 })
 
+
+
 export const actions = {
+  addBook({ }, book) {
+    const booksRef = db.collection('books').doc(book.isbn)
+
+    booksRef.set({
+      title: book.title,
+      author: book.author,
+      publisher: book.publisherName,
+      series: book.seriesName,
+      image: book.largeImageUrl.split('?_ex')[0],
+      sales_date: book.salesDate,
+      price: book.itemPrice,
+      rakuten_url: book.itemUrl,
+    })
+  },
   addFavorite({ }, { isbn }) {
     // favoritesコレクションが存在している前提で動くので注意
     const uid = firebase.auth().currentUser.uid
