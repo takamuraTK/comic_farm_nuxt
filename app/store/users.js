@@ -4,23 +4,27 @@ export const state = () => ({
   isLoggedIn: false,
   email: null,
   displayName: null,
+  uid: null,
 })
 
 export const getters = {
   isLoggedIn: (state) => state.isLoggedIn,
   email: (state) => state.email,
-  displayName: (state) => state.displayName
+  displayName: (state) => state.displayName,
+  uid: (state) => state.uid
 }
 
 export const mutations = {
   setUser(state, user) {
     state.email = user.email
     state.displayName = user.displayName
+    state.uid = user.uid
     state.isLoggedIn = true
   },
   removeUser(state) {
     state.email = null
     state.displayName = null
+    state.uid = null
     state.isLoggedIn = false
   }
 }
