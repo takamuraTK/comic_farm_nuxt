@@ -16,7 +16,10 @@
         <v-btn icon color="teal">
           <v-icon>mdi-book-open-variant</v-icon>
         </v-btn>
-        <v-btn @click="addFavorite(book.Item)" icon :color="isfavorite ? 'lime' : 'grey'">
+        <v-btn @click="removeFavorite(book.Item)" icon color="lime" v-if="isfavorite">
+          <v-icon>mdi-star</v-icon>
+        </v-btn>
+        <v-btn @click="addFavorite(book.Item)" icon color="grey" v-else>
           <v-icon>mdi-star</v-icon>
         </v-btn>
       </div>
@@ -45,6 +48,10 @@ export default {
       this.$store.dispatch("book/addBook", book);
       this.$store.dispatch("book/addFavorite", book);
       this.isfavorite = true;
+    },
+    removeFavorite(book) {
+      this.$store.dispatch("book/removeFavorite", book);
+      this.isfavorite = false;
     },
   },
 };

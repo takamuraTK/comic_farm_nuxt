@@ -43,5 +43,11 @@ export const actions = {
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
       })
     })
+  },
+  removeFavorite({ }, book) {
+    const uid = firebase.auth().currentUser.uid
+    const booksRef = db.collection('books').doc(book.isbn)
+    const favoritesRef = booksRef.collection('favorites').doc(uid)
+    favoritesRef.delete()
   }
 }
