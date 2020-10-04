@@ -5,23 +5,7 @@
     <span></span>
     <v-layout v-if="success" wrap justify-space-around>
       <v-col v-for="book in books" :key="book.isbn">
-        <v-card outlined>
-          <v-hover v-slot:default="{ hover }">
-            <v-img class="white--text align-end" height="300px" :src="book.Item.largeImageUrl">
-              <transition name="fade">
-                <div :class="{ 'img-on-hover': hover }" v-show="hover">
-                  <v-card-subtitle v-text="book.Item.publisherName" class="pb-0"></v-card-subtitle>
-                  <v-card-title v-text="book.Item.title"></v-card-title>
-                </div>
-              </transition>
-            </v-img>
-          </v-hover>
-
-          <v-card-actions>
-            <v-btn color="orange" text>所持</v-btn>
-            <v-btn @click="addFavorite(book.Item)" color="orange" text>お気に入り</v-btn>
-          </v-card-actions>
-        </v-card>
+        <BookCard :book="book"></BookCard>
       </v-col>
     </v-layout>
   </v-container>
@@ -56,25 +40,6 @@ export default {
         this.success = true;
       }
     },
-    addFavorite(book) {
-      this.$store.dispatch("book/addBook", book);
-      this.$store.dispatch("book/addFavorite", book);
-    },
   },
 };
 </script>
-
-<style scoped>
-.img-on-hover {
-  background: rgba(0, 0, 0, 0.7);
-}
-.fade-enter {
-  opacity: 0;
-}
-.fade-enter-active {
-  transition: opacity 0.3s;
-}
-.fade-enter-to {
-  opacity: 1;
-}
-</style>
