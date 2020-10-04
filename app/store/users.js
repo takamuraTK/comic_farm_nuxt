@@ -35,14 +35,4 @@ export const actions = {
     firebase.auth().signOut()
     commit("removeUser")
   },
-  checkState({ }) {
-    firebase.auth().onAuthStateChanged((result) => {
-      if (result) {
-        return true
-      } else {
-        commit("removeUser")
-        return false
-      }
-    });
-  }
 }
