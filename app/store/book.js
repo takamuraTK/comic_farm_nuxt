@@ -23,8 +23,11 @@ export const actions = {
   },
   addFavorite({ }, book) {
     const uid = firebase.auth().currentUser.uid
+    const batch = db.batch()
     const booksRef = db.collection('books').doc(book.isbn)
-    const favoritesRef = booksRef.collection('favorites').doc(uid)
+    const booksFavoritesRef = booksRef.collection('favoriteUsers').doc(uid)
+    const usersRef = db.collection('users').doc(uid)
+    const usersFavoritesRef = usersRef.collection('favoriteBooks').doc(book.isbn)
 
     booksRef.get().then(function (doc) {
       if (!doc.exists) {
@@ -39,15 +42,25 @@ export const actions = {
           rakuten_url: book.itemUrl,
         })
       }
-      favoritesRef.set({
-        created_at: firebase.firestore.FieldValue.serverTimestamp(),
-      })
     })
+    batch.set(booksFavoritesRef, {
+      created_at: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+    batch.set(usersFavoritesRef, {
+      created_at: firebase.firestore.FieldValue.serverTimestamp(),
+      bookRef: booksRef
+    })
+    batch.commit()
   },
   removeFavorite({ }, book) {
     const uid = firebase.auth().currentUser.uid
+    const batch = db.batch()
     const booksRef = db.collection('books').doc(book.isbn)
-    const favoritesRef = booksRef.collection('favorites').doc(uid)
-    favoritesRef.delete()
+    const booksFavoritesRef = booksRef.collection('favoriteUsers').doc(uid)
+    const usersRef = db.collection('users').doc(uid)
+    const usersFavoritesRef = usersRef.collection('favoriteBooks').doc(book.isbn)
+    batch.delete(booksFavoritesRef)
+    batch.delete(usersFavoritesRef)
+    batch.commit()
   }
 }

@@ -40,7 +40,10 @@ export default {
   async created() {
     const uid = firebase.auth().currentUser.uid;
     const booksRef = await db.collection("books").doc(this.book.Item.isbn);
-    const favoritesDoc = await booksRef.collection("favorites").doc(uid).get();
+    const favoritesDoc = await booksRef
+      .collection("favoriteUsers")
+      .doc(uid)
+      .get();
     this.isfavorite = favoritesDoc.exists;
   },
   methods: {
