@@ -13,12 +13,13 @@ export const actions = {
     booksRef.set({
       title: book.title,
       author: book.author,
-      publisher: book.publisherName,
-      series: book.seriesName,
-      image: book.largeImageUrl.split('?_ex')[0],
-      sales_date: book.salesDate,
-      price: book.itemPrice,
-      rakuten_url: book.itemUrl,
+      publisherName: book.publisherName,
+      seriesName: book.seriesName,
+      largeImageUrl: book.largeImageUrl.split('?_ex')[0],
+      salesDate: book.salesDate,
+      itemPrice: book.itemPrice,
+      itemUrl: book.itemUrl,
+      isbn: book.isbn
     })
   },
   addFavorite({ }, book) {
@@ -34,12 +35,13 @@ export const actions = {
         booksRef.set({
           title: book.title,
           author: book.author,
-          publisher: book.publisherName,
-          series: book.seriesName,
-          image: book.largeImageUrl.split('?_ex')[0],
-          sales_date: book.salesDate,
-          price: book.itemPrice,
-          rakuten_url: book.itemUrl,
+          publisherName: book.publisherName,
+          seriesName: book.seriesName,
+          largeImageUrl: book.largeImageUrl.split('?_ex')[0],
+          salesDate: book.salesDate,
+          itemPrice: book.itemPrice,
+          itemUrl: book.itemUrl,
+          isbn: book.isbn
         })
       }
     })

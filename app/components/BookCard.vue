@@ -1,11 +1,11 @@
 <template>
   <v-card outlined width="190px">
     <v-hover v-slot:default="{ hover }">
-      <v-img class="white--text align-end" height="300px" :src="book.Item.largeImageUrl">
+      <v-img class="white--text align-end" height="300px" :src="book.largeImageUrl">
         <transition name="fade">
           <div :class="{ 'img-on-hover': hover }" v-show="hover">
-            <v-card-subtitle v-text="book.Item.publisherName" class="pb-0"></v-card-subtitle>
-            <v-card-title v-text="book.Item.title"></v-card-title>
+            <v-card-subtitle v-text="book.publisherName" class="pb-0"></v-card-subtitle>
+            <v-card-title v-text="book.title"></v-card-title>
           </div>
         </transition>
       </v-img>
@@ -16,10 +16,10 @@
         <v-btn icon color="teal">
           <v-icon>mdi-book-open-variant</v-icon>
         </v-btn>
-        <v-btn @click="removeFavorite(book.Item)" icon color="lime" v-if="isfavorite">
+        <v-btn @click="removeFavorite(book)" icon color="lime" v-if="isfavorite">
           <v-icon>mdi-star</v-icon>
         </v-btn>
-        <v-btn @click="addFavorite(book.Item)" icon color="grey" v-else>
+        <v-btn @click="addFavorite(book)" icon color="grey" v-else>
           <v-icon>mdi-star</v-icon>
         </v-btn>
       </div>
@@ -39,7 +39,7 @@ export default {
   },
   async created() {
     const uid = firebase.auth().currentUser.uid;
-    const booksRef = await db.collection("books").doc(this.book.Item.isbn);
+    const booksRef = await db.collection("books").doc(this.book.isbn);
     const favoritesDoc = await booksRef
       .collection("favoriteUsers")
       .doc(uid)

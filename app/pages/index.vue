@@ -5,7 +5,7 @@
     <span></span>
     <v-layout v-if="success" wrap justify-space-around>
       <v-col v-for="book in books" :key="book.isbn">
-        <BookCard :book="book"></BookCard>
+        <BookCard :book="book.Item"></BookCard>
       </v-col>
     </v-layout>
   </v-container>
