@@ -13,7 +13,10 @@
 
     <v-card-actions>
       <div class="container btn-area">
-        <v-btn icon color="teal">
+        <v-btn @click="removeRead(book)" icon color="teal" v-if="isread">
+          <v-icon>mdi-book-open-variant</v-icon>
+        </v-btn>
+        <v-btn @click="addRead(book)" icon color="grey" v-else>
           <v-icon>mdi-book-open-variant</v-icon>
         </v-btn>
         <v-btn @click="removeFavorite(book)" icon color="lime" v-if="isfavorite">
@@ -35,6 +38,7 @@ export default {
   data() {
     return {
       isfavorite: false,
+      isread: false
     };
   },
   async created() {
@@ -44,7 +48,9 @@ export default {
       .collection("favoriteUsers")
       .doc(uid)
       .get();
+    const readDoc = await booksRef.collection("readUsers").doc(uid).get();
     this.isfavorite = favoritesDoc.exists;
+    this.isread = readDoc.exists;
   },
   methods: {
     addFavorite(book) {
@@ -56,6 +62,15 @@ export default {
       this.$store.dispatch("book/removeFavorite", book);
       this.isfavorite = false;
     },
+    addRead(book) {
+      this.$store.dispatch("book/addBook", book);
+      this.$store.dispatch("book/addRead", book);
+      this.isread = true;
+    },
+    removeRead(book) {
+      this.$store.dispatch("book/removeRead", book);
+      this.isread = false;
+    }
   },
 };
 </script>

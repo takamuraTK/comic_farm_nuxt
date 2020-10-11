@@ -64,5 +64,48 @@ export const actions = {
     batch.delete(booksFavoritesRef)
     batch.delete(usersFavoritesRef)
     batch.commit()
-  }
+  },
+  addRead({ }, book) {
+    const uid = firebase.auth().currentUser.uid
+    const batch = db.batch()
+    const booksRef = db.collection('books').doc(book.isbn)
+    const booksReadRef = booksRef.collection('readUsers').doc(uid)
+    const usersRef = db.collection('users').doc(uid)
+    const usersReadRef = usersRef.collection('readBooks').doc(book.isbn)
+
+    booksRef.get().then(function (doc) {
+      if (!doc.exists) {
+        booksRef.set({
+          title: book.title,
+          author: book.author,
+          publisherName: book.publisherName,
+          seriesName: book.seriesName,
+          largeImageUrl: book.largeImageUrl.split('?_ex')[0],
+          salesDate: book.salesDate,
+          itemPrice: book.itemPrice,
+          itemUrl: book.itemUrl,
+          isbn: book.isbn
+        })
+      }
+    })
+    batch.set(booksReadRef, {
+      created_at: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+    batch.set(usersReadRef, {
+      created_at: firebase.firestore.FieldValue.serverTimestamp(),
+      bookRef: booksRef
+    })
+    batch.commit()
+  },
+  removeRead({ }, book) {
+    const uid = firebase.auth().currentUser.uid
+    const batch = db.batch()
+    const booksRef = db.collection('books').doc(book.isbn)
+    const booksReadRef = booksRef.collection('readUsers').doc(uid)
+    const usersRef = db.collection('users').doc(uid)
+    const usersReadRef = usersRef.collection('readBooks').doc(book.isbn)
+    batch.delete(booksReadRef)
+    batch.delete(usersReadRef)
+    batch.commit()
+  },
 }
