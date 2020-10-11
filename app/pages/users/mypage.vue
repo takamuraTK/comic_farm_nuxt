@@ -1,27 +1,22 @@
 <template>
-  <div>
-    <p>{{ displayName }}</p>
-    <p>{{ email }}</p>
-    <p>{{ uid }}</p>
-    <v-container>
-      <v-btn @click="getFavorites">
-        <v-icon left color="lime"> mdi-star </v-icon>お気に入りに登録した漫画
-      </v-btn>
-      <v-btn @click="getReads">
-        <v-icon left color="teal"> mdi-book-open-variant </v-icon>読んだことのある漫画
-      </v-btn>
-      <v-layout v-if="favorites" wrap justify-space-around>
-        <v-col v-for="book in favorites" :key="book.isbn">
-          <BookCard :book="book"></BookCard>
-        </v-col>
-      </v-layout>
-      <v-layout v-if="reads" wrap justify-space-around>
-        <v-col v-for="book in reads" :key="book.isbn">
-          <BookCard :book="book"></BookCard>
-        </v-col>
-      </v-layout>
-    </v-container>
-  </div>
+  <v-container>
+    <v-btn @click="getFavorites">
+      <v-icon left color="lime"> mdi-star </v-icon>お気に入りに登録した漫画
+    </v-btn>
+    <v-btn @click="getReads">
+      <v-icon left color="teal"> mdi-book-open-variant </v-icon>読んだことのある漫画
+    </v-btn>
+    <v-layout v-if="favorites" wrap justify-space-around>
+      <v-col v-for="book in favorites" :key="book.isbn">
+        <BookCard :book="book"></BookCard>
+      </v-col>
+    </v-layout>
+    <v-layout v-if="reads" wrap justify-space-around>
+      <v-col v-for="book in reads" :key="book.isbn">
+        <BookCard :book="book"></BookCard>
+      </v-col>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
