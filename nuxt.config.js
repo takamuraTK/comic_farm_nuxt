@@ -103,5 +103,8 @@ export default {
     MESSAGINGSENDERID: process.env.MESSAGINGSENDERID,
     APPID: process.env.APPID,
     MEASUREMENTID: process.env.MEASUREMENTID,
+  },
+  render: {
+    compressor: false
   }
 }

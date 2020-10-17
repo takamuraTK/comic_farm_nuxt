@@ -1,0 +1,17 @@
+service: comic-farm
+plugins:
+  - serverless-offline
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ap-northeast-1
+
+functions:
+  comic-farm:
+    handler: lambda.handler
+    timeout: 30
+    events:
+    - http: ANY /
+    - http: 'ANY {proxy+}'
