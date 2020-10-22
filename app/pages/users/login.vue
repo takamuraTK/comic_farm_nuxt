@@ -23,7 +23,7 @@ export default {
   methods: {
     async handleClickSubmit() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch("users/login", { ...this.formData });
+        await this.$store.dispatch("users/login", { ...this.formData });
         this.$router.push("/");
       }
     },

@@ -2,7 +2,7 @@
   <v-app-bar app clipped-left>
     <v-app-bar-nav-icon></v-app-bar-nav-icon>
     <v-toolbar-title>ComicFarm</v-toolbar-title>
-    <v-toolbar-items class="hidden-sm-and-down ml-5">
+    <v-toolbar-items class="hidden-sm-and-down ml-5" v-if="isLoggedIn">
       <v-btn to="/">Search</v-btn>
     </v-toolbar-items>
     <v-spacer></v-spacer>
