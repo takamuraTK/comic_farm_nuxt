@@ -3,7 +3,7 @@
     <h2>ログイン</h2>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field v-model="formData.email" :rules="[required, emailRule]" label="メールアドレス"></v-text-field>
-      <v-text-field v-model="formData.password" :rules="[required, passwordRule]" label="パスワード"></v-text-field>
+      <v-text-field v-model="formData.password" :rules="[required, passwordRule]" label="パスワード" type="password"></v-text-field>
       <v-btn :disabled="!valid" color="success" class="mt-4" @click="handleClickSubmit">ログイン</v-btn>
     </v-form>
   </v-container>
