@@ -1,6 +1,5 @@
 service: comic-farm
-plugins:
-  - serverless-offline
+
 frameworkVersion: '2'
 
 provider:
